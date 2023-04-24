@@ -38,36 +38,12 @@ R = np.array([
     [0,0,0,0,0,0,0,1,0,0,0,0],
     [0,0,0,0,0,0,0,0,1,0,0,0],
     [0,1,0,0,0,0,0,0,0,1,0,0],
-    [0,0,1,0,0,0,1000,1,0,0,0,0],
+    [0,0,1,0,0,0,1,1,0,0,0,0],
     [0,0,0,1,0,0,1,0,0,0,0,1],
     [0,0,0,0,1,0,0,0,0,1,0,0],
     [0,0,0,0,0,1,0,0,1,0,1,0],
     [0,0,0,0,0,0,0,0,0,1,0,1],
     [0,0,0,0,0,0,0,1,0,0,1,0]])
-
-
-# PART 2 - BUILDING THE AI SOLUTION WITH Q LEARNING
-
-# Initializing the Q-Values
-Q = np.array(np.zeros([12,12]))
-
-# Implementing the Q-Learning process
-for i in range(1000):
-    # select random state from the 12 possible states
-    current_state = np.random.randint(0,12)
-    # random action that can lead to a possible state from 0 - 11
-    playable_actions = []
-    for j in range(12):
-        if R[current_state, j] > 0:
-            playable_actions.append(j)
-
-    # reach the next state by playing the action
-    next_state = np.random.choice(playable_actions)
-
-    # compute the temporal difference
-    TD = R[current_state, next_state] + gamma*Q[next_state, np.argmax(Q[next_state,])] - Q[current_state, next_state]
-
-    Q[current_state, next_state] = Q[current_state, next_state] + alpha*TD
 
 # PART 3 - GOING INTO PRODUCTION
 # pring all Q values into the console
@@ -79,7 +55,26 @@ state_to_location = {state: location for location, state in location_to_state.it
 # making the final function that will return the optimal route
 def route(starting_location, ending_location):
     
-    # R[location_to_state['G'], location_to_state['G']] = 1000
+    R_new = np.copy(R)
+    R_new[location_to_state[ending_location], location_to_state[ending_location]] = 1000
+
+    Q = np.array(np.zeros([12,12]))
+    for i in range(1000):
+        # select random state from the 12 possible states
+        current_state = np.random.randint(0,12)
+        # random action that can lead to a possible state from 0 - 11
+        playable_actions = []
+        for j in range(12):
+            if R_new[current_state, j] > 0:
+                playable_actions.append(j)
+
+        # reach the next state by playing the action
+        next_state = np.random.choice(playable_actions)
+
+        # compute the temporal difference
+        TD = R_new[current_state, next_state] + gamma*Q[next_state, np.argmax(Q[next_state,])] - Q[current_state, next_state]
+
+        Q[current_state, next_state] = Q[current_state, next_state] + alpha*TD
 
     route = [starting_location]
     
