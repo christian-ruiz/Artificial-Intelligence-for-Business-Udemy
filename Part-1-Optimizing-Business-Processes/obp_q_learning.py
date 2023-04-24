@@ -45,10 +45,6 @@ R = np.array([
     [0,0,0,0,0,0,0,0,0,1,0,1],
     [0,0,0,0,0,0,0,1,0,0,1,0]])
 
-# PART 3 - GOING INTO PRODUCTION
-# pring all Q values into the console
-print(Q.astype(int))
-
 # making a mapping from the states to the locations
 state_to_location = {state: location for location, state in location_to_state.items()}
 
