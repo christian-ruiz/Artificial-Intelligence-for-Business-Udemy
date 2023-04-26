@@ -84,5 +84,11 @@ def route(starting_location, ending_location):
         starting_location = next_location
     return route
 
+# creating a second priority location
+
+def best_route(starting_location, intermediary_location, ending_location):
+    return(route(starting_location, intermediary_location) + route(intermediary_location, ending_location))
+
+
 # printing the final route
 print('Route: ' + str(route('E', 'G')))
