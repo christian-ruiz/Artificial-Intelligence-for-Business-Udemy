@@ -34,7 +34,53 @@ class Environment(object):
         self.reward = 0.0
         self.game_over = 0
         self.train = 1
+
     # MAKING A METHOD THAT UPDATES THE ENVIRONMENT RIGHT AFTER THE AI PLAYS AN ACTION
+    def update_env(self, direction, energy_ai, month):
+
+        # GETTING THE REWARD
+
+        # Computing the energy spent by the server's cooling sysetm when there is no AI
+        energy_noai = 0
+        if (self.temperature_noai < self.optimal_temperature[0]):
+            energy_noai = self.optimal_temperature[0] - self.temperature_noai
+            self.temperature_noai = self.optimal_temperature[0]
+        elif (self.temperature_noai > self.optimal_temperature[1]):
+            energy_noai = self.temperature_noai - self.optimal_temperature[1]
+            self.temperature_noai = self.optimal_temperature[1]
+        # Computing the Reward
+        
+        # Scaling the Reward
+
+
+        # GETTING THE NEXT STATE
+
+        # Updating the atmospheric temperature
+
+        # Updating the number of users
+
+        # Updating the rate of data
+
+        # Computing the Delta of Interinsic Temperature
+
+        # Computing the Delta of Temperature caused by the AI
+
+        
+        # GETTING GAME OVER
+
+
+        # UPDATING THE SCORES
+
+        # Updating the Total Every Spent by the AI
+
+        # Updating the Total Every spent by the server's cooling system when there is no AI
+
+        
+        # SCALING THE NEXT STATE
+
+
+        # RETURNING THE NEXT STATE, THE REWARD, AND GAME OVER
+
 
 
     # MAKING A METHOD THAT RESETS THE ENVIRONMENT
