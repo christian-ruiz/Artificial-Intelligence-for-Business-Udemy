@@ -49,20 +49,31 @@ class Environment(object):
             energy_noai = self.temperature_noai - self.optimal_temperature[1]
             self.temperature_noai = self.optimal_temperature[1]
         # Computing the Reward
-        
+        self.reward = energy_noai - energy_ai
         # Scaling the Reward
-
+        '''
+        stabalizing the deep q learning computations
+        '''
+        self.reward = 1e-3 * self.reward
 
         # GETTING THE NEXT STATE
 
         # Updating the atmospheric temperature
-
+        self.atmospheric_temperature = self.monthly_atmospheric_temperatures[month]        
         # Updating the number of users
-
+        self.current_number_users += np.random.randint(-self.max_number_users, self.max_number_users)
+        if (self.current_number_users > self.max_number_users):
+            self.current_number_users = self.max_number_users
+        elif (self.current_number_users < self.min_number_users):
+            self.current_number_users = self.min_number_users
         # Updating the rate of data
-
+        self.current_rate_data += np.random.randint(-self.max_rate_data, self.max_rate_data)
+        if (self.current_rate_data > self.max_rate_data):
+            self.current_rate_data = self.max_rate_data
+        elif (self.current_rate_data < self.min_rate_data):
+            self.current_rate_data = self.min_rate_data
         # Computing the Delta of Interinsic Temperature
-
+        
         # Computing the Delta of Temperature caused by the AI
 
         
