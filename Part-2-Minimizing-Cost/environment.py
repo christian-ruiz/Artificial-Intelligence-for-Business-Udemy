@@ -73,9 +73,21 @@ class Environment(object):
         elif (self.current_rate_data < self.min_rate_data):
             self.current_rate_data = self.min_rate_data
         # Computing the Delta of Interinsic Temperature
-        
-        # Computing the Delta of Temperature caused by the AI
+        past_intrinsic_temperature = self.intrinsic_temperature
+        self.intrinsic_temperature = self.atmospheric_temperature + 1.25 * self.current_number_users + 1.25 * self.current_rate_data
+        delta_intrinsic_temperature = self.intrinsic_temperature - past_intrinsic_temperature
 
+        # Computing the Delta of Temperature caused by the AI
+        if direction == -1:
+            delta_temperature_ai = -energy_ai
+        elif direction == 1:
+            delta_temperature_ai = energy_ai
+
+        # Updating the new servers temperature when there is AI
+        self.temperature_ai += delta_intrinsic_temperature +  delta_temperature_ai
+
+        # Updating the new servers temperature when there is no AI
+        self.temperature_noai += delta_intrinsic_temperature 
         
         # GETTING GAME OVER
 
