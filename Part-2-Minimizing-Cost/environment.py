@@ -90,7 +90,18 @@ class Environment(object):
         self.temperature_noai += delta_intrinsic_temperature 
         
         # GETTING GAME OVER
-
+        if delta_temperature_ai < self.min_temperature:
+            if self.train == 1:
+                self.game_over = 1
+            else:
+                self.temperature_ai = self.optimal_temperature[0]
+                self.total_energy_ai += self.optimal_temperature[0] - self.temperature_ai
+        elif self.temperature_ai > self.max_temperature:
+            if self.train == 1:
+                self.game_over = 1
+            else:
+                self.temperature_ai = self.optimal_temperature[1]
+                self.total_energy_ai += self.temperature_ai - self.optimal_temperature[1]
 
         # UPDATING THE SCORES
 
